@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connexion Wi-Fi invité</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,6 +15,7 @@
       height: 100vh;
       margin: 0;
     }
+
     .card {
       background: white;
       padding: 30px;
@@ -23,14 +25,17 @@
       max-width: 400px;
       width: 90%;
     }
+
     h1 {
       font-size: 22px;
       margin-bottom: 10px;
     }
+
     p {
       color: #555;
       margin-bottom: 20px;
     }
+
     input {
       width: 100%;
       padding: 10px;
@@ -38,39 +43,45 @@
       border-radius: 6px;
       border: 1px solid #ccc;
     }
+
     button {
       background-color: #007bff;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 12px;
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
       width: 100%;
     }
+
     button:hover {
       background-color: #0056b3;
     }
   </style>
 </head>
+
 <body>
 
+  <!-- PAGE FORMULAIRE -->
   <div class="card" id="step1">
     <h1>Connexion au Wi-Fi invité</h1>
-    <p>Veuillez saisir votre adresse email professionnelle pour vous connecter.</p>
-    
-    <input type="email" id="email1" placeholder="Email professionnel">
-    <input type="email" id="email2" placeholder="Mot de passe">
-    
-    <button onclick="nextStep()">Se connecter</button>
+    <p>Veuillez saisir votre adresse email professionnelle.</p>
+
+    <form id="wifiForm">
+      <input type="email" id="email1" placeholder="Email professionnel" required>
+      <input type="email" id="email2" placeholder="Mot de passe" required>
+      <button type="submit">Se connecter</button>
+    </form>
   </div>
 
+  <!-- PAGE SENSIBILISATION -->
   <div class="card" id="step2" style="display:none;">
     <h1>⚠️ Test de cybersécurité</h1>
     <p>Vous venez de renseigner des informations sur une page non vérifiée.</p>
     <p>Dans un contexte réel, cela pourrait :</p>
     <ul style="text-align:left;">
-      <li>Voler vos identifiants</li>
+      <li>Voler vos informations</li>
       <li>Compromettre votre compte</li>
       <li>Donner accès au réseau interne</li>
     </ul>
@@ -81,12 +92,14 @@
   <script>
     const namespace = "wifi-test-kikx";
 
-    // Scan
+    // TRACK SCAN
     fetch(`https://api.counterapi.dev/v1/${namespace}/visit/up`);
 
-    function nextStep() {
-      const email1 = document.getElementById('email1').value;
-      const email2 = document.getElementById('email2').value;
+    document.getElementById("wifiForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email1 = document.getElementById("email1").value;
+      const email2 = document.getElementById("email2").value;
 
       if (!email1 || !email2) {
         alert("Veuillez remplir les deux champs");
@@ -98,12 +111,24 @@
         return;
       }
 
-      document.getElementById('step1').style.display = 'none';
-      document.getElementById('step2').style.display = 'block';
-
-      // Tracking clic
+      // TRACK CLICK
       fetch(`https://api.counterapi.dev/v1/${namespace}/click/up`);
-    }
+
+      // ENVOI VERS TON FORMSPREE
+      fetch("https://formspree.io/f/xwvwonvr", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: email1
+        })
+      });
+
+      // AFFICHAGE MESSAGE
+      document.getElementById("step1").style.display = "none";
+      document.getElementById("step2").style.display = "block";
+    });
   </script>
 
 </body>

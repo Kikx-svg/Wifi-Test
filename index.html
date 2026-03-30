@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion Wi-Fi invité</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="step1">
+    <h1>Connexion au Wi-Fi invité</h1>
+    <p>Cliquez sur le bouton ci-dessous pour finaliser votre connexion.</p>
+    <button onclick="nextStep()">Se connecter</button>
+  </div>
+
+  <div class="card" id="step2" style="display:none;">
+    <h1>⚠️ Test de cybersécurité</h1>
+    <p>Vous venez de scanner un QR code inconnu.</p>
+    <p>Dans un contexte réel, cela pourrait :</p>
+    <ul style="text-align:left;">
+      <li>Rediriger vers un site malveillant</li>
+      <li>Voler vos informations</li>
+      <li>Installer un malware</li>
+    </ul>
+    <p><strong>Bon réflexe :</strong> Vérifiez toujours la source avant de scanner.</p>
+    <p>En cas de doute, contactez le service informatique.</p>
+  </div>
+
+  <script>
+    function nextStep() {
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+
+      // Exemple de tracking simple (optionnel)
+      console.log("Utilisateur a cliqué sur Se connecter");
+    }
+  </script>
+</body>
+</html>

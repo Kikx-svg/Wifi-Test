@@ -67,18 +67,20 @@
   </div>
 
   <script>
-    // Compteur de scans (visites)
-    fetch("https://api.countapi.xyz/hit/wifi-test-kikx/visit");
+    // Remplace "wifi-test-kikx" par un nom unique si tu veux
+    const namespace = "wifi-test-kikx";
+
+    // Tracking visites (scan)
+    fetch(`https://api.counterapi.dev/v1/${namespace}/visit/up`);
 
     function nextStep() {
       document.getElementById('step1').style.display = 'none';
       document.getElementById('step2').style.display = 'block';
 
-      // Compteur de clics
-      fetch("https://api.countapi.xyz/hit/wifi-test-kikx/click");
+      // Tracking clics
+      fetch(`https://api.counterapi.dev/v1/${namespace}/click/up`);
     }
   </script>
 
 </body>
 </html>
-
